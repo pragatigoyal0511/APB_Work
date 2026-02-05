@@ -1,0 +1,132 @@
+
+https://airtel.atlassian.net/wiki/spaces/APA/pages/120782918/Retailer+Service+Review+Meetings
+
+1. Tell me about yourself
+
+I am Pragati Goyal. I have done my gradutaion from NIT, Jaipur in 2014. I have around 11 years of experience. 
+I am working with Airtel Pyaments Bank from around 5 yrs.
+I started with Senior Developer Role in APB, now from past 1.5 yrs working as tech lead handling end to end from solutioning till deliveries.
+Part of vertical which help Airtel pyaments Bank limited through the services provided to extend the business of APB via platform like, Ranger app, Mitra app, Merchant app, tez web portal and internal actors like Rangers, Distributors, FSE and external actors like Retailers and Merchants.
+
+
+My key role here is to handle all requests and requirements which comes to Platform POD which has overall 14 services, taking care of all actors SOA, ledger history, transaction history,360 degree view of transactions, 360 degree view of retailers, service responsible for capturing location for any type of activity done on app like login, doing transcations. Responsible for handling tech upgrades like h-vault migration of all services, Java 17 migration, aerospike migration etc.
+
+Tech stack have mainly worked upon is: kafka, aerospike, Java, springboot, 
+
+
+
+It includes currently is to co-ordinate with product, understand the requirement, solution it, align its execution within team, clarify their doubts, have discussions with them, discussions with QA, help team if they are stuck technically, and then taking it to release in production.
+My other responsibilities include
+
+
+
+
+2. What does your current company do?
+Airtel Payments Bank -> It is a banking service launched by Bharti Airtel. 
+It provides digital banking service to the users but cannot provide loan or credit cards which traditional banks can do.
+Airtel Payments Bank aims to promote financial inclusion by providing banking services to underserved and unbanked populations, particularly in rural and semi-urban areas. Traditional banks may have a more extensive branch network but can be less accessible to these populations.
+
+What does it offer?
+1. It offers digital banking 
+2. Saving bank account 
+3. Withdraw or deposit money 
+4. Money transfer to other bank accounts or Airtel bank account using phones only.
+5. Provides financial facility to merchants for accepting paymnets through QR codes.
+
+
+How is it different from traditional banks?
+1. They offser competative interest rates on savings account. Often, higher than traditional banks.
+2. Deposit limit capping: As per RBI, payments bank can accept deposits upto 2 lakh rs. User can maintain balance upto 2 lakh at any point of time.
+3. Traditional banks may not have extensive branch network in rural and semi urban areas where digital banking services provided by APB through retail outlets. (Rural, semi urban areas - where population is less, not much infrastructure, not much economic growth is there)
+4. They cannot offer credit cards or loans.
+
+
+
+Basically provides the banking facilities to people in remote areas via shops. We do not have bank branches in Tier2, Tier3 cities. Which cities come into Tier2, Tier3? or is it only tier2, tier3 cities or what?
+Places like villages where economic growth is low, population is less, not much infrastructure.
+
+
+
+How is it different from Phonepe, PayTm, GPay? Why should we use APB?
+
+
+
+
+->Who are the competitors, who provide services just like airtel payments bank?
+Like Paytm payments bank, Jio Payments Bank
+
+
+
+->Traditional banks like State Bank of India (SBI), HDFC Bank, ICICI Bank, and others also compete in the digital payments and banking space with their own mobile banking apps and digital services, but aren't these traditional banks? because apb user have saving bank account can have upto 2 lakh, but not for other banks like sbi hdfc, then how is it competetior?
+
+Imagine you need to send ₹500 to a friend. You have an SBI account and an Airtel Payments Bank account. You could use either SBI's UPI or Airtel Payments Bank's UPI to make the transfer. In this scenario, SBI and Airtel Payments Bank are competing for your transaction, even though they offer different overall services.
+
+In conclusion:
+
+While traditional banks offer a broader range of services and have no deposit limits, they still compete with payments banks in specific areas like digital payments, basic banking services, and customer acquisition. The competition is not about offering the exact same services, but about attracting customers to use their platform for certain financial activities. The customer chooses based on convenience, fees, offers, and their overall banking needs.
+
+
+
+->What kind of Banking facilities?
+1. Many people in our country do not have smart phones, even if they do have, do not know how to use it. So, if they want to check their balance, withdraw some money,
+deposit money, transfer money, do any NEFT or RTGS txn, want their money to get debited from account linked with their aadhar automatically, want to keep their money in bank, this all can be done easily through retailers. Retailers are people who have shops there, and they can provide these facilities to the people. 
+
+
+
+
+->Who are retailers?
+Virtual Bank Branches where Customers reaches out for help like DMT(Direct Money Transfer NEFT, RTGS). it can be Grocery shop, Airtel Store or any shop. Retailers are agent who work for Commission under Distributor
+
+
+->How these get onboarded in our system? Who onboards them?
+
+
+
+
+
+3. What is your role in your current company?
+I joined here as Senior software engineer in dec 2020, and then dec 2023 got promoted, now leading a team team of 5 people, where my role is to delivery of projects end to end, starting from understanding requirement from product, and breaking down them into tasks and aligning sprint tasks within team, help team if they are technically blocked, some major prod issues come directly to me to solve and get it fixed, i do code reviews, test case review, till production releaae. 
+If any cross vertical team needs any help from services related to my POD, then tehy would directly approach me.
+
+
+
+
+
+4. What technologies and tools do you use in your current role?
+
+Here in APB, we use Java language, Sprintboot framework
+Kafka as messaging queues,
+Elastic search as logging and auditing, as database too
+Oracle as SQL database
+Aerospike as cache and DB (when used without ttl)
+Kong as api gateway
+
+
+
+
+
+
+5. Can you describe a recent project you worked on?
+Recently, i have worked on many good production issues.
+
+
+
+
+
+
+
+6. What challenges did you face during this project, and how did you overcome them?
+
+
+
+
+7. What was your biggest achievement in your last project?
+
+
+
+
+8. Why are you looking for change?
+
+
+
+9. How do you ensure the quality of your code?
