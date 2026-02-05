@@ -1,0 +1,204 @@
+->Production issue which came on 9th Nov and 17th Nov:
+
+Situation which we faced: 
+We have merchants, as actors in our system, who accept the payments through QR codes.They have airtel QR code. Now, they use merchant app, to see their transactions and settlements.
+Now, suddenly they were facing issue that in their transaction history, there were no or missing transactions.
+
+
+Task:
+We needed to fix it as it was impacting directly the customers. We needed to figure out the issue, and then solve for atleast for real time transactions they do not face and then recover the transactions of those dates where 6th to 9th nov, where transactions are missed in their transcation history.
+
+
+
+
+Actions:  steps, actions, or decisions I personally took to handle the situation.
+
+To understand what happened, we looked in to the txn360 index, which is responsible for fetching the txn history for merchnats.
+We had some sample txn ids, fow hich txn was not seen.
+
+-We observed that in index,for which we had TxnIds, TxnId was there, document was present but data was not there related to txn like credit and debit details, only location details was there.
+-We also verified in CBS DB, that that transaction has successfully happened since entry was there in CBS (Since if that txn was not happened, then we will not see it in CBS)
+- And also, we observed that there was no lag also in spark topic, ki hum bolte ki abhi data process
+
+does entry will not go in CBS if some txn failed? 
+If txn did not even reach CBS, means that txn did not happen..then that entry will not go. 
+
+-We checked the logs throughout the pipeline, but there was no issue there as well.
+
+
+The main thing which we observed was that mainly the missing transactions had the document with the txn id in elastic, but had only location data and nothing else, from whichever location the transaction has been done.
+
+means, it was something to do with location service.
+
+Now, we thought may be the data is getting overriden by location service, so we thought let us create some lag in the service. So, in location service, where there were 24 consumers running on 4 servers, we made ot 12 consumers, and polling records we reduced to 50%, 500 from 1000, for those servers of location service which was using kafka cluster 1 , since same kafka cluster 1 is used by txn pipeline.
+
+but still issue persisted.
+
+Then we completely stoppped the application on prod for location service.(since it was used for auditing..and currently we had to see ki auditing ni hogi toh chlega but customers impact rokna tha) but still issue persisted.
+
+
+
+Now, how come after stopping the service, there were transactions which were having location data only and transactions were real time.
+So, how could this was possiblE, while we had stopped the location service?
+
+So, looked into the consumers of Location_audit_log_v2 topic, where we found there was 1 active consumer.
+Came to know, there was some script which was running on one of the prod server, which was consuming data from this topic where data was on kafka cluster 2 and producing it on spark topic.
+
+when we stopped that script as well. The issue was resolved for real time txns.
+
+
+Now,? why was the issue when this script was running earlier also?
+
+This was issue eralier also, but not for merchant transactions. So, we did not come to know about this
+
+
+But then? why did it came for merchant txns, pehle kyon nahin aaya?
+It is because some team who had recently applied location_auditing plugin on the some usecase to PH, and PH data is getting pushed on both cluster 1 and 2. 
+We have multiple consumers running on location service..all consuming data and sending to logaction log topic. 
+Now, use case customer.online.upipayment has started pushing to Paymnet hub and thus PH data getting consumed at location service for this use case well. 
+
+Now, this is running on 7 server (95,96,97 -> Kafka cluster 2, and 98/99/100/101 -> cluster1) and PH consumer enabled on all 7 servers, therefore, PH data goes to location log topic of cluster 1 and location log topic of cluster 2 also.  
+
+  
+
+When same data was going cluster 2 and it was being pushed to spark topic through logstash pipeline, there was the issue since it was sending without key, and without occ in our code, data was getting overridden and lost. 
+
+  
+
+now, we have removed this script since the script was sending duplicate data only which was alredy going through cluster 1 to spark topic. 
+
+
+Transaction data updates were lost when Spark consumed messages from a Kafka topic which were populated via Logstash script. 
+
+
+-Why this happned that data was getting lost oftxn when data populated via logstash script?
+
+Transaction data updates were lost when Spark consumed messages from a Kafka topic which were populated via Logstash script. 
+
+Original application pushed messages to Kafka with a key (ID) → ensured ordering and partition consistency. Logstash script pushed messages without a key → Kafka distributed messages randomly across partitions. 
+
+  
+Spark jobs consumed from different partitions: 
+
+  
+Same transaction ID appeared in multiple partitions → processed concurrently by different Spark executors. 
+Spark code uses IndexRequest (full overwrite) without optimistic concurrency control to save in elastic. 
+Result: last-write-wins → newer fields overwritten by stale updates → data loss. 
+
+Example: 
+
+If two Spark executors process the same ID at the same time: 
+
+Both read ES doc → both merge → both write → last write wins. 
+
+This can cause race conditions unless we use optimistic concurrency control (versioning) or external locking. 
+
+Let say initial State in Elasticsearch 
+
+Document ID = 123 
+
+{ 
+
+  "location": "12,13", 
+
+} 
+
+  
+
+Two Kafka Messages 
+
+Msg A: {id:123, txnDate:"2025-11-08 11:47:14"} 
+Msg B: {id:123, location:"14,15"} 
+
+Both belong to the same user but land in different Kafka partitions because Logstash didn’t set a key. Spark reads partitions in parallel. 
+
+  
+
+What Happens in Spark? 
+
+  
+Executor 1 processes Msg A: 
+
+  
+
+Reads ES doc → {location:"12,13"} 
+Merges → {location:"12,13", txnDate:"2025-11-08 11:47:14"} 
+Prepares bulk index request. 
+
+  
+
+Executor 2 processes Msg B at the same time: 
+
+  
+
+Reads ES doc → {location:"12,13"} 
+Merges → {location:"14,15"} 
+Prepares bulk index request. 
+
+  
+
+  
+
+Race Condition 
+Both write back to ES almost simultaneously. 
+Last write wins 
+
+  
+
+If Executor 2 writes last → ES doc = {location:"14,15"} 
+txnDate field is lost because Executor 2 didn’t know about Executor 1’s update. 
+
+  
+
+Why? 
+Both executors read the same old state. 
+Merge logic is local to each executor. 
+
+  
+
+Note: failure of spark which goes into spark topic 
+
+Failures in ES were unrelated to OCC (since OCC was not implemented) but due to mapping issues, timeouts, or null IDs. 
+
+  
+
+->Why we do not require logstash script? 
+
+We have multiple consumers running on location service..all consuming data and sending to logaction log topic. 
+
+Now, use case customer.online.upipayment has started pushing to Paymnet hub and thus PH data getting consumed at location service for this use case well. 
+
+Now, this is running on 7 server (95,96,97 -> Kafka cluster 2, and 98/99/100/101 -> cluster1) and PH consumer enabled on all 7 servers, therefore, PH data goes to location log topic of cluster 1 and location log topic of cluster 2 also.  
+
+
+When same data was going cluster 2 and it was being pushed to spark topic through logstash pipeline, there was the issue since it was sending without key, and without occ in our code, data was getting overridden and lost. 
+
+now, we have removed this script since the script was sending duplicate data only which was alredy going through cluster 1 to spark topic. 
+
+
+
+=========================================================
+
+
+Now the real time transactions were working fine? What about older transactions which is still missing?
+
+1. Now, to get the txn data, we have another service reconfeeder - whose job is to fetch the data from main database, like here CBS and then populate them in to spark topic, so that spark service can consume
+
+But when we tried this, we failed, since it had long running queries because too much data like in crores for a day..even if we apply hour wise..sometimes it was working, sometimes not since long running queries are not allowed by dba on prod.
+
+2. We thought 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
