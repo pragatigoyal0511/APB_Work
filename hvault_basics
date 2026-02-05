@@ -1,0 +1,107 @@
+HashiCorp Vault - 
+What is Vault?
+HashiCorp Vault is a secure secrets management tool - think of it as a highly secure password manager for your applications.
+
+Key Concepts in Your Code:
+1. Key-Value (KV) Bucket/Store
+KV = Key-Value storage (like a HashMap/Dictionary)
+
+It's a simple storage where you store secrets as key-value pairs
+
+Example from your code:
+
+Key: "elastic.auth.username"  →  Value: "elastic_user"
+Key: "elastic.auth.password"  →  Value: "secret123"
+
+Copy
+2. Secrets Path
+vaultEngine.getVaultKVSecretsPaths().get(0)
+
+Copy
+This is the location/path in Vault where your secrets are stored
+
+Like a folder path: /secret/notifications-service/sit
+
+Different environments (SIT, UAT, PROD) have different paths
+
+3. VaultEngine
+Configuration object that tells your app:
+
+Where Vault server is located
+
+Which paths to read secrets from
+
+Authentication details
+
+4. VaultDatabase
+Special type of secret for database credentials
+
+Vault can dynamically generate DB usernames/passwords
+
+In your VoltDataSourceConfig:
+
+.username(vaultDatabases.get(0).getUsername())
+.password(vaultDatabases.get(0).getPassword())
+
+Copy
+java
+How It Works in Your Service:
+1. App starts → Connects to Vault server
+2. Reads secrets from KV path (e.g., /secret/notifications-service/sit)
+3. Gets credentials:
+   - Database passwords
+   - Elasticsearch credentials
+   - Actuator passwords
+4. Injects them into Spring beans (@RefreshScope)
+5. App uses these secrets to connect to services
+
+Copy
+Why Use Vault?
+❌ Without Vault:
+
+# Hardcoded in properties file (INSECURE!)
+db.password=MyPassword123
+elastic.password=ElasticPass456
+
+Copy
+properties
+✅ With Vault:
+
+# No passwords in code!
+# Fetched securely from Vault at runtime
+
+Copy
+properties
+Your Service's Vault Usage:
+KV Secrets (VaultProperties):
+
+Elasticsearch credentials
+
+Database passwords
+
+Actuator auth credentials
+
+Database Secrets (VaultDatabase):
+
+Dynamic DB credentials for Volt datasource
+
+Auto-rotated by Vault
+
+RefreshScope:
+
+Secrets can be updated without restarting the app
+
+Vault rotates passwords → App picks up new ones
+
+Simple Analogy:
+Vault = Bank vault 🏦
+
+KV Bucket = Safety deposit box inside the vault
+
+Secrets Path = Box number (#123)
+
+Keys = Labels on envelopes inside the box
+
+Values = Actual secrets inside envelopes
+
+Your app has the key to open box #123, reads the secrets, and uses them to connect to databases/services.
