@@ -1,0 +1,119 @@
+What all major things done in experience vertical?
+
+
+-> what to write for all major features?
+1. what is the feature about in app?
+2. how does it help actual users?
+3. how much performance did it improve?
+4. what was the architecture of this?
+5. what challenges did I face?
+6. what further improvements can be done in this?
+
+
+
+1. showing banners and popups to users
+	what was the story?
+	how did you do that?
+	what was the purpose of this? how did it actually help users?
+
+
+
+
+
+
+
+2. rnm-soa - showing soa to retailer and distributors for past 2 years.
+    what is soa?
+    who are retailers and distributors?
+    how did I do it?
+
+
+3. Communication bell icon
+
+4. improving transaction pipeline  - 
+	like ki several jagah se jo events arae hain unka update kisne kab update kia? 
+	kafka getting de attched from rnm-soa
+	kafka configuration for retailer location service - that issue of kafka lag
+	kafka configuration for 
+	Kibana and grafana 
+
+
+5. extra fields for nearby retailer service
+
+6. aadhaar pay story ongoing..
+
+
+7. retailer 360 
+8. H-vault migration of all 14 services
+9. java 17 upgrade and Springboot 3 upgrade for all 14 services
+10. Kong upgrade 
+11. Logstash upgrade activity on SIT
+
+12. CBS upgrade - NEFT and RTGS transactions
+13. MOving out of volt/gateway
+14 code reviews
+15. production issues
+16. mentoring team with technical challenges
+17. sprint planning
+
+
+
+
+
+
+
+
+============================================================
+
+
+
+1. FSE user whitelisting
+
+2. DB cleanup scripts
+
+3.Successful migration on updated kafka version,updated kong version,aerospike on production for all our microservices successfully as part of project SUNRISE. We were the 1st team to complete kong migration on 2.8 across the bank.
+
+4. RBI audit points 
+
+5. KPI hierarchy solutioning, it’ development in progress , soon will be released.
+
+6.Took the initiative of sharing learnings while working with the team through confluence page, would try to maintain it going forward.
+
+7. Gamification 
+
+
+8. Kong optimisation exercise, did the kong migration successfully on prod for all our services, led the kong migration on SIT. Kong optimisation which was an achievement too as this is used across APB and performance is highly improved. Considered various possible components to improve its performance and had lot of learning in this process. 
+
+
+9. delivered KPI Automation successfully with minimum bugs
+
+10. Contributed in hiring process by taking interviews.
+
+11. KPI Automation: Ownership of design, development and delivery of this feature
+
+12.  location_auditing which is used accross APB
+13. backend revamp of combine promoter portal service - from start ,  improving its performance. combined promoter team where we kick started the re-architecture and revamp of Admin portal and App Service. 
+
+
+
+
+Awards and achievements:
+1. Rising Star award
+2. promotion and started leading team
+3. mid year and yearly hikes
+
+
+
+
+
+TO do for me:
+
+My personal goals:
+
+1. write all challenges
+2. make architecture diagram of txn location
+3. Understand how it works how apb earns money?
+4. Complete the resume
+
+
+
