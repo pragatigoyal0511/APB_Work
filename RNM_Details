@@ -1,0 +1,126 @@
+RnM 
+
+
+
+RNM is B2B part of APBL, Services provides by RnM verticals are used to extend the APBL business through various APBL internal(Rangers, Distributors, FSE/BDE) and external actors(Retailers and Merchants) through Ranger, Retailer, Merchant, Mitra APP and Tez web portal.
+
+
+
+->Rangers :	Actor	-> kind of sales person. They help bank to expand in the market by acquires the Retailers and Merchants. They are owned by Bank and closely monitored by the Sales team(like Zonal Manager). They carry Rangers App. They  map Merchant and Retails to the distributors. They don't do any financial transactions. They also help in other bank features like distributing Fast-tag, opening current account.	
+Former user (Deleted) 
+
+
+->Ranger: Android App	-> Platform to support Ranger. This App allows the onboarding(Digital EKYC FLOW) of Ranger, Retailers and Merchants. This is also called Golden Journey. This also help Zonal Manager to Workforce Management, align Target/KPI to there Rangers Payouts based on the Performance Metrics. 
+
+Support for Distributor and FSE/BDE on-boarding functionality is under development.
+
+RnM owns only onboarding (Field, Post) which include Digital C-KYC FLOW of Ranger, Retailers and Merchants.
+
+This app is used by FSE. This App is used by other Verticals to host there own non-transactional use-cases like Distribution (Inventory Management) of Fast-tag, Micro ATM, and opening current account. What is checkin, checkout to merchant and retailers ? see Video 26:11 onwards. 
+
+Certain other transactional use cases mentioned by Different Verticals: DMT, Utility Payments, Recharges, Cash deposit/withdrawals, AEPS(Aadhar enabled payment system) ?
+
+Platform Services also provide the support to Ranger App ?
+
+
+
+->Retailers	: Actor ->Virtual Bank Branches where Customers reaches out for help like DMT(Direct Money Transfer NEFT, RTGS). it can be Grocery shop, Airtel Store or any shop. 	Retailers are agent who work for Commission under Distributor ?	
+Vakul Saxena
+
+
+-> Merchants :Actor	-> Are the businesses who accept payment using QR code. They have Airtel QR code. Two type of merchant : 1. Space Merchant ? : Small Merchant 2. FKY(Full KYC ?) Merchant : Large merchant like Big Bazar and other large chains. They can accept money through UPI and Wallet. Mostly(97%) Merchant are UPI based and 3% are Wallet Based.	is Settlement required only for Wallet based Merchant ?	
+
+
+
+->Distributors	: Actor ->	Manages Circle(s) with the help of Retailers and Merchant. Geographies are distributes in Circles.
+
+As of now there onboarding is manual. Rangers Team is working on the Digitalising on onboarding flow.
+
+On Boarding is Manual, but what they can do in the System?	
+
+FSE - Field Service Executive or BDE Business Development Executive	Actor	
+They are owned by Distributors.
+
+There job is to distribute m-cash from Distributor or extract m-cash from Retailers and Merchant.
+
+As of now there onboarding is manual. Rangers Team is working on the Digitalising on onboarding flow.
+
+On Boarding is Manual, but what they can do in the System?	
+
+M-Cash, LAPU(Local Area Payment Unit)	currency	is a digital currency used by and between APBL for all transaction. LAPU is currency of Airtel Telco.	
+
+
+->Tez/Retailer	: Portal ->	This is a web Portal based on React. It Provides support to Retailers and Distributor. The backend functionalities are supported by Platform Services.	
+
+
+->Mitra	: Android App ->This is also Shared by Airtel Telco and this is out of scope. Within this there is Bank section which is also used by Retailers. This app provides Certain use cases for Retailers. TBD	
+
+
+->Thanks 	Android App	
+
+
+
+->Merchant :Android App	->it is purely for the Merchant to see the transactions and settlement details.	
+
+
+Platform Services	Backend Services	
+Provides services to Mitra/Tez
+
+Login, Registration
+Sign-UP
+Forgot/Reset Password
+-------------------------------------
+
+My
+Earnings
+transaction history
+Ledger History
+Roles / Trainings Retailers
+Subscription 
+Help and Support
+-------------------------------------
+
+Other Common Services
+
+Mpin
+OTP
+Send SMS
+What in difference in Sign-up/Registration and on-boarding ?	
+
+Monetisation	
+Retailers earns Commission flow
+
+Commission flow based on business rules
+
+M-Cash Flow:
+
+How Distributor, FSE and Retailer sends/receive money from each-other.
+How Distributor send M-cash/LAPU to Airtel and get real money i.e. LAPU conversion.
+Charging Flow:
+
+Platform Fee from Retailers while on boarding.
+Settlement Flow:
+
+For Merchant at the end of day.
+it's a Module ?	
+
+
+
+->what is the advantage of using airtel payments bank then? when we have other such banks also?
+That's a great question! Here's a breakdown of potential advantages of using Airtel Payments Bank, especially when compared to other options:
+
+-Airtel Ecosystem Integration: A major advantage is its seamless integration with the Airtel mobile network. This can translate to:
+Easy Access for Airtel Users: If you're already an Airtel mobile customer, opening and managing an Airtel Payments Bank account is likely to be simpler and more convenient.
+-Special Offers and Bundles: Airtel often provides exclusive offers, discounts, and bundled services for its mobile customers who also use Airtel Payments Bank. This could include data benefits, cashback on recharges, or other perks.
+-Widespread Network: Airtel has a vast network of retail outlets and banking points across India, making it relatively easy to access banking services, deposit or withdraw cash, and get assistance, especially in rural and semi-urban areas.
+-Simplified Banking: Payments banks, in general, are designed to offer simple and accessible banking services, particularly for those who may not have access to traditional banking. This often means easier account opening processes and user-friendly mobile apps.
+-Focus on Digital Payments: Airtel Payments Bank emphasizes digital transactions, making it convenient for users who prefer cashless payments, online transfers, and mobile banking.
+-Specific Partnerships: Airtel Payments Bank may have partnerships with other companies to offer unique services or benefits to its customers.
+In summary: The key advantages often boil down to the convenience of integration with the Airtel mobile network, the accessibility of its widespread network of banking points, and the focus on simplified digital banking services.
+
+To decide if it's the best choice for you, consider:
+
+Your needs: What banking services do you use most often?
+Your location: How accessible are Airtel banking points in your area?
+Your mobile provider: Are you an Airtel customer?
+Specific offers: Compare the interest rates, fees, and offers from different payments banks.
